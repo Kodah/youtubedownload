@@ -24,28 +24,43 @@
             <div class="row">
                 <div class="input-field col s6 offset-s3">
                     <input placeholder="youtube.com/3728rh23br" ng-model="youtubeURL" type="text">
-                    <label for="first_name">First Name</label>
+                    <label for="Youtube url">First Name</label>
                 </div>
                 <div class="row col s2 offset-s5 center-align">
                     <button class="btn waves-effect waves-light " ng-click="update(youtubeURL)">Submit</button>
                 </div>
-                <div ng-if="successfulInfo" class="row col s4 offset-s4 animate-if">
-                    <div class="card small center-align">
-                        <div class="card-image" style="height:100%">
-                            <img ng-src="{{videoInfo.thumbnail}}" />
-                        </div>
-                        <div class="card-content">
-                            <p>{{videoInfo.title}}</p>
-                            <p>{{videoInfo.fileSize}}</p>
-                        </div>
-                        <div class="card-action">
-                        	<a class="btn btn-primary" href="{{videoInfo.uuid}}">Download</a>
-                            <!-- <a ng-click="download()">Download</a> -->
-                        </div>
+            </div>
+        </form>
+        <div ng-if="successfulInfo" class="row col s4 offset-s4 animate-if">
+            <div class="card small center-align">
+                <div class="card-image" style="height:100%">
+                    <img ng-src="{{videoInfo.thumbnail}}" />
+                </div>
+                <div class="card-content">
+                    <p>{{videoInfo.title}}</p>
+                    <p>{{videoInfo.fileSize}}</p>
+                </div>
+                <div class="card-action">
+                    <a class="btn btn-primary" href="{{videoInfo.uuid}}">Download</a>
+                    <!-- <a ng-click="download()">Download</a> -->
+                </div>
+            </div>
+        </div>
+        <div ng-if="isProcessing" class="row col s12 center-align animate-if">
+            <div class="preloader-wrapper active">
+                <div class="spinner-layer spinner-red-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 </body>
 
