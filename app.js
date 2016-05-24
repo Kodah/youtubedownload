@@ -82,7 +82,7 @@ router.post('/api/mp3', function(req, res) {
             .on('end', function() {
                 console.log('Processing finished !', audioFilename);
 
-                fs.unlink(videoFilename);
+                fs.unlinkSync(videoFilename);
                 res.json(infoDict);
                 // res.download(audioFilename, function() {
                 //     fs.unlink(audioFilename);
