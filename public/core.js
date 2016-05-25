@@ -1,5 +1,5 @@
-angular.module('app', []).controller('MainController', ['$scope', '$http', '$location', '$anchorScroll',
-    function($scope, $http, $location, $anchorScroll) {
+angular.module('app', []).controller('MainController', ['$scope', '$http',
+    function($scope, $http) {
 
         $scope.successfulInfo = false;
         $scope.isProcessing = false;
@@ -19,8 +19,6 @@ angular.module('app', []).controller('MainController', ['$scope', '$http', '$loc
                 $scope.successfulInfo = true;
                 $scope.isProcessing = false;
                 $scope.videoInfo = response.data[0];
-                $location.hash('bottom');
-                $anchorScroll();
             }, function errorCallback(response) {
                 console.log("error")
                 $scope.successfulInfo = false;
