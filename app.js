@@ -31,10 +31,10 @@ app.get('/', function(req, res) {
     });
 });
 
-router.get('/data/:uuid', function(req, res) {
+router.get('/data/:uuid/:filename', function(req, res) {
     console.log(req.params.uuid);
-    var path = './data/'+req.params.uuid;
-    res.download(path, function() {
+    var path = './data/' + req.params.uuid;
+    res.download(path,req.params.filename, function() {
         // fs.unlink(path);
     });
 });
