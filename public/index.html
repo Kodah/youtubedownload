@@ -20,14 +20,14 @@
         <h2 class="center-align">for upwork</h2>
     </div>
     <div class="row">
-        <form name="userForm" class="col s12">
+        <form name="userForm" ng-submit="update(youtubeURL)"class="col s12">
             <div class="row">
                 <div class="input-field col s6 offset-s3">
                     <input placeholder="youtube.com/3728rh23br" required ng-model="youtubeURL" type="url">
                     <label for="Youtube url">Youtube URL</label>
                 </div>
                 <div class="row col s2 offset-s5 center-align">
-                    <button type="submit" class="btn waves-effect waves-light " ng-click="update(youtubeURL)">Submit</button>
+                    <button type="submit" class="btn waves-effect waves-light ">Submit</button>
                 </div>
             </div>
         </form>
@@ -40,9 +40,12 @@
                     <p class="card-title grey-text text-darken-4">{{videoInfo.title}}</p>
                 </div>
                 <div class="card-action">
-                    <a class="btn" href="{{videoInfo.uuid}}">Download</a>
+                    <a class="btn" href="{{videoInfo.uuid}}/{{videoInfo.pathTitle}}">Download</a>
                 </div>
             </div>
+        </div>
+        <div ng-if="errorOccured" class="row col s6 offset-s3 animate-if">
+            <p class="flow-text">There was a problem, make sure to enter youtube url</p>
         </div>
         <div ng-if="isProcessing" class="row col s12 center-align animate-if">
             <div class="preloader-wrapper active">

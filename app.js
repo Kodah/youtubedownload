@@ -44,7 +44,6 @@ router.get('/data/:uuid/:filename', function(req, res) {
 router.post('/api/mp3', function(req, res) {
 
     var youtubedl = require('youtube-dl');
-    var ffmpeg = require('fluent-ffmpeg');
 
     var video = youtubedl(req.body.youtubeURL, ['--format=18'], {
         cwd: __dirname
@@ -59,14 +58,14 @@ router.post('/api/mp3', function(req, res) {
         console.log('Download started');
         console.log('filename: ' + info._filename);
         console.log('size: ' + info.size);
-        
+
         var title = info.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
         var exportPath = title + '.mp3';
         console.log(audioFilename);
 
         infoDict.push({
             "title": info.title,
-            "pathTitle" : exportPath,
+            "pathTitle": exportPath,
             "thumbnail": info.thumbnail,
             "uuid": audioFilename
         });
@@ -77,6 +76,7 @@ router.post('/api/mp3', function(req, res) {
 
         console.log('finished downloading! ', videoFilename);
 
+        var ffmpeg = require('fluent-ffmpeg');
         var command = ffmpeg(fs.createReadStream(videoFilename))
             .output(audioFilename)
             .on('end', function() {
@@ -89,6 +89,9 @@ router.post('/api/mp3', function(req, res) {
                 // });
             })
             .run();
+    }).on('error', function error(err) {
+        console.log('error 2:', err);
+        res.status(500).send("Errored");
     });
 
     video.pipe(fs.createWriteStream(videoFilename));

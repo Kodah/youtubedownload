@@ -3,22 +3,28 @@ angular.module('app', []).controller('MainController', ['$scope', '$http',
 
         $scope.successfulInfo = false;
         $scope.isProcessing = false;
-        $scope.update = function(youtubeURL) {
+        $scope.errorOccured = false;
 
+        $scope.update = function(youtubeURL) {
+            $scope.successfulInfo = false;
+            $scope.errorOccured = false;
             $scope.isProcessing = true;
             $http({
                 method: 'POST',
                 url: '/api/mp3',
-                data: {'youtubeURL': youtubeURL}
+                data: {
+                    'youtubeURL': youtubeURL
+                }
             }).then(function successCallback(response) {
                 $scope.successfulInfo = true;
+                $scope.isProcessing = false;
                 $scope.videoInfo = response.data[0];
-                console.log($scope.videoInfo);
-                $scope.isProcessing = false;
             }, function errorCallback(response) {
+                console.log("error")
                 $scope.successfulInfo = false;
-                console.log(response);
+                $scope.errorOccured = true;
                 $scope.isProcessing = false;
+                $scope.videoInfo = null;
             });
 
         };
