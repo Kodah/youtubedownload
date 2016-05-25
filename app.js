@@ -75,7 +75,7 @@ router.post('/api/mp3', function(req, res) {
     }).on('end', function() {
 
         console.log('finished downloading! ', videoFilename);
-
+        console.log('Beginning conversion!');
         var ffmpeg = require('fluent-ffmpeg');
         var command = ffmpeg(fs.createReadStream(videoFilename))
             .output(audioFilename)
@@ -91,10 +91,13 @@ router.post('/api/mp3', function(req, res) {
             .run();
     }).on('error', function error(err) {
         console.log('error 2:', err);
+        fs.unlinkSync(videoFilename);
+        writeStream.end();
         res.status(500).send("Errored");
     });
 
-    video.pipe(fs.createWriteStream(videoFilename));
+    var writeStream = fs.createWriteStream(videoFilename);
+    video.pipe(writeStream);
 });
 
 app.use('/', router);
